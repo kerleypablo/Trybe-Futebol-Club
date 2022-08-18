@@ -6,10 +6,10 @@ module.exports = {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
-      autoIncremet: true,
+      autoIncrement: true,
       allowNull: false,
     },
-    home_teams: {
+    home_team: {
       type: Sequelize.INTEGER,
       foreignKey: true,
       references: {
@@ -35,7 +35,7 @@ module.exports = {
     away_team_goals: {
       type: Sequelize.INTEGER,
     },
-    in_progess: {
+    in_progress: {
       type: Sequelize.INTEGER,
     }
     }, 
