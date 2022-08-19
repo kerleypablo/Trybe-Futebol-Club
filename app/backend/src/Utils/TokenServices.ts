@@ -1,5 +1,5 @@
-import * as jwt from 'jasonwebtoken';
-import { IUserCredentials } from 'src/Interfaces/IUser';
+import * as jwt from 'jsonwebtoken';
+import { IUserCredentials } from '../Interfaces/IUser';
 
 const { JWT_SECRET } = process.env;
 

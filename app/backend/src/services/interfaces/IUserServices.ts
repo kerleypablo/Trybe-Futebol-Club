@@ -1,3 +1,3 @@
-export default interface IUserServices<T> {
-  Autenticate(login: T): Promise<T>;
+export interface IUserServices<T> {
+  Autenticate(login: T): Promise<string>;
 }

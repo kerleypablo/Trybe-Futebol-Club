@@ -1,18 +1,18 @@
-import Users from 'src/database/models/user';
-import TokenServices from 'src/Utils/TokenServices';
-import { IUserCredentials } from 'src/Interfaces/IUser';
-import IUserServices from './interfaces/IUserServices';
+import TokenServices from '../Utils/TokenServices';
+import { IUserCredentials } from '../Interfaces/IUser';
+import { IUserServices } from './interfaces/IUserServices';
 import User from '../database/models/user';
+import ErrorMiddleware from '../middlewares/erroMiddleware';
 
-export default class UserServices implements IUserServices<Users> {
+export default class UserServices implements IUserServices<User> {
   private tokenServices = new TokenServices();
 
-  public async Autenticate(login: IUserCredentials) {
+  public async Autenticate(login: IUserCredentials): Promise<string> {
     const user = await User.findOne({
       where: { email: login.email, password: login.password },
     });
     if (!user) {
-      return '';
+      throw new ErrorMiddleware(401, 'username or password is invalid');
     }
     const token = this.tokenServices.tokenGenerate(user);
 
