@@ -9,12 +9,12 @@ export default class UserServices implements IUserServices<User> {
 
   public async Autenticate(login: IUserCredentials): Promise<string> {
     const user = await User.findOne({
-      where: { email: login.email, password: login.password },
+      where: { email: login.email },
     });
     if (!user) {
       throw new ErrorMiddleware(401, 'username or password is invalid');
     }
-    const token = this.tokenServices.tokenGenerate(user);
+    const token = this.tokenServices.tokenGenerate({ email: user.email, password: user.password });
 
     return token;
   }
