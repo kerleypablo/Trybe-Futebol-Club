@@ -1,5 +1,5 @@
 import TokenServices from '../Utils/TokenServices';
-import { IUserCredentials } from '../Interfaces/IUser';
+import { Iuser, IUserCredentials } from '../Interfaces/IUser';
 import { IUserServices } from './interfaces/IUserServices';
 import User from '../database/models/user';
 import DecryptPassword from '../middlewares/decrypt.password';
@@ -24,5 +24,14 @@ export default class UserServices implements IUserServices<User> {
   public generateToken(user: User): Promise<string> {
     const token = this.tokenServices.tokenGenerate({ email: user.email, password: user.password });
     return token;
+  }
+
+  public async verifyToken(token: string): Promise<User | boolean> {
+    const result = await this.tokenServices.tokenAutenticate(token) as Iuser;
+    if (!result || null) {
+      return false;
+    }
+    const user = await UserServices.getUserByemail(result.email) as User;
+    return user;
   }
 }

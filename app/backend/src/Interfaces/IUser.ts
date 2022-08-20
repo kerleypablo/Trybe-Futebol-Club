@@ -5,6 +5,7 @@ export interface IUserCredentials {
 
 export interface Iuser extends IUserCredentials {
   username: string;
+  role: string;
 }
 
 export interface UserDTO extends Iuser {

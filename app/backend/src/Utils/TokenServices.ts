@@ -18,7 +18,11 @@ export default class TokenServices {
   }
 
   public async tokenGenerate(payload: IUserCredentials) {
-    console.log(payload);
     return this.jwt.sign(payload, JWT_SECRET as string, this.jwtconfig);
+  }
+
+  public async tokenAutenticate(token: string) {
+    const verify = this.jwt.decode(token);
+    return verify;
   }
 }
