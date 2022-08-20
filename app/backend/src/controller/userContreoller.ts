@@ -8,8 +8,9 @@ export default class UserController {
   Autenticate = async (req: Request, res: Response) => {
     try {
       const login = await UserServices.Autenticate(req.body);
-      if (!login) return res.status(500).json({ message: 'User not found' });
+      if (!login) return res.status(401).json({ message: 'Incorrect email or password' });
       const token = await this.userServices.generateToken(req.body);
+      console.log(token);
       return res.status(200).json({ token });
     } catch (error) {
       res.status(500).json({ message: 'Something went wrong' });
