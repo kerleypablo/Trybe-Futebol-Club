@@ -12,4 +12,11 @@ export default class TeamController {
       res.status(500).json({ message: 'Something went wrong' });
     }
   };
+
+  getTeambyId = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const teamResult = await this.teamservices.getTeambyId(id);
+    if (!teamResult) return res.status(401).json({ message: 'Team not found' });
+    return res.status(200).json(teamResult);
+  };
 }
