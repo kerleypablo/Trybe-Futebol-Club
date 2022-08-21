@@ -9,16 +9,19 @@ import { IUserCredentials } from '../Interfaces/IUser';
 import mocsk from './mocsk';
 import { Response } from 'superagent';
 import  TokenServices   from '../Utils/TokenServices'
+import decript from '../middlewares/decrypt.password'
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
-
+const tokeService = new TokenServices();
 
 describe('Login User', () => {
    let chaiHttpResponse: Response;
    beforeEach(() => {
     sinon.stub(User, 'findOne').resolves(mocsk.userCredential as User);
+    sinon.stub(tokeService, 'tokenGenerate').resolves(mocsk.token.token);
+    sinon.stub(decript, 'decrypt')
   });
 
   afterEach(() => {
@@ -27,8 +30,8 @@ describe('Login User', () => {
   it ('testa se possivel fazer login', async () => {
     chaiHttpResponse = await chai.request(app)
     .post('/login')
-    .send(mocsk.userCredential as IUserCredentials);
-   // expect(chaiHttpResponse).to.have.status(200);
+    .send(mocsk.userCredential);
+    expect(chaiHttpResponse).to.have.status(200);
     expect(chaiHttpResponse).to.be.json;
     expect(chaiHttpResponse.body.message).to.have.property('token');
   });

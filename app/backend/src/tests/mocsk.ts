@@ -12,7 +12,7 @@ export default {
         password: 'secr' 
     },
     token: {
-        token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInBhc3N3b3JkIjoic2VjcmV0X2FkbWluIiwiaWF0IjoxNjYxMDkyMTY3LCJleHAiOjE2NjExNzg1Njd9.KF9aY_ZntCXYx_197FJmn3MXQDGHjaApt89YdbLeLzg`
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInBhc3N3b3JkIjoic2VjcmV0X2FkbWluIiwiaWF0IjoxNjYxMDkyMTY3LCJleHAiOjE2NjExNzg1Njd9.KF9aY_ZntCXYx_197FJmn3MXQDGHjaApt89YdbLeLzg"
     },
     user: {
         id: 1,
