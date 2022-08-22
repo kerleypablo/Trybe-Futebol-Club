@@ -6,6 +6,7 @@ import { IMatches } from '../Interfaces/IMatches';
 export default class MatchesServices implements ImatchesServices<IMatches> {
   matches: string;
   async getAllMatches(): Promise<IMatches[]> {
+    console.log('all');
     const allMatch = await Matches.findAll({
       include: [
         { model: Teams, as: 'teamHome', attributes: ['teamName'] },
@@ -14,5 +15,31 @@ export default class MatchesServices implements ImatchesServices<IMatches> {
     });
     this.matches = '';
     return allMatch;
+  }
+
+  async getAllMatchesInProgress(): Promise<IMatches[]> {
+    console.log('inpro');
+    const allMatchInProgress = await Matches.findAll({
+      where: { inProgress: true },
+      include: [
+        { model: Teams, as: 'teamHome', attributes: ['teamName'] },
+        { model: Teams, as: 'teamAway', attributes: ['teamName'] },
+      ],
+    });
+    this.matches = '';
+    return allMatchInProgress;
+  }
+
+  async getAllMatchesNotInProgress(): Promise<IMatches[]> {
+    console.log('notIn');
+    const allMatchInProgress = await Matches.findAll({
+      where: { inProgress: false },
+      include: [
+        { model: Teams, as: 'teamHome', attributes: ['teamName'] },
+        { model: Teams, as: 'teamAway', attributes: ['teamName'] },
+      ],
+    });
+    this.matches = '';
+    return allMatchInProgress;
   }
 }
