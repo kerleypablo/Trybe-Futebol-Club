@@ -5,8 +5,6 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import User from '../database/models/user';
-import { IUserCredentials } from '../Interfaces/IUser';
-
 import mocsk from './mocsk';
 import { Response } from 'superagent';
 import  TokenServices   from '../Utils/TokenServices'
