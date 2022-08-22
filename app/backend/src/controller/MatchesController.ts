@@ -21,4 +21,22 @@ export default class MatchesController {
       res.status(500).json({ message: 'Something went wrong' });
     }
   };
+
+  creatMatches = async (req: Request, res: Response) => {
+    try {
+      const { homeTeam, awayTeam } = req.body;
+      if (homeTeam === awayTeam) {
+        return res.status(401)
+          .json({ message: 'It is not possible to create a match with two equal teams' });
+      }
+      const checkTeam1 = await this.matchesservices.checkTeam(homeTeam);
+      if (!checkTeam1) return res.status(404).json({ message: 'There is no team with such id!' });
+      const checkeTeam2 = await this.matchesservices.checkTeam(awayTeam);
+      if (!checkeTeam2) return res.status(404).json({ message: 'There is no team with such id!' });
+      const newMatch = await this.matchesservices.creatMatch(req.body);
+      return res.status(201).json(newMatch);
+    } catch (error) {
+      res.status(500).json({ message: 'Something went wrong' });
+    }
+  };
 }

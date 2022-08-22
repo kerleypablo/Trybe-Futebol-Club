@@ -42,4 +42,23 @@ export default class MatchesServices implements ImatchesServices<IMatches> {
     this.matches = '';
     return allMatchInProgress;
   }
+
+  async creatMatch(match: IMatches): Promise<IMatches> {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = match;
+    const newMatch = await Matches.create({
+      homeTeam,
+      awayTeam,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress: true });
+    this.matches = '';
+    return newMatch as IMatches;
+  }
+
+  async checkTeam(id: number): Promise<boolean> {
+    this.matches = '';
+    const checked = await Matches.findOne({ where: { id } });
+    if (!checked) return false;
+    return true;
+  }
 }

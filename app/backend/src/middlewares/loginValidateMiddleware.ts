@@ -18,9 +18,8 @@ export default class ValidateLogin {
     const token = req.headers.authorization;
     if (!token) return res.status(400).json({ message: 'No token was found' });
     const result = await this.tokenServices.tokenAutenticate(token as string);
-    console.log(result);
     if (!result || null) {
-      return res.status(400).json({ message: 'Token nao autorizado' });
+      return res.status(401).json({ message: 'Token must be a valid token' });
     }
     return next();
   };

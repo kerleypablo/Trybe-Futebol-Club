@@ -5,6 +5,6 @@ import ValidateLogin from '../middlewares/loginValidateMiddleware';
 const user = Router();
 const validateLogin = new ValidateLogin();
 user.get('/matches', matchesController.getAllMatches);
-user.post('/matches', validateLogin.verifyToken);
+user.post('/matches', validateLogin.verifyToken, matchesController.creatMatches);
 
 export default user;

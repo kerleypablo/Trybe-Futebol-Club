@@ -1,7 +1,7 @@
 export interface IMatches {
   id: number;
   homeTeam: number;
-  homeTeamGoal: number
+  homeTeamGoals: number
   awayTeam: number
   awayTeamGoals: number
   inProgress: number
