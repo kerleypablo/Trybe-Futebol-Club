@@ -61,4 +61,20 @@ export default class MatchesServices implements ImatchesServices<IMatches> {
     if (!checked) return false;
     return true;
   }
+
+  async updateMatchProgress(id: string): Promise<boolean> {
+    this.matches = '';
+    const result = await Matches.findByPk(id);
+    if (!result) return false;
+    await Matches.update({ inProgress: false }, { where: { id } });
+    return true;
+  }
+
+  async updateMatcheGoals(goals: IMatches, id: string): Promise<boolean> {
+    const { homeTeamGoals, awayTeamGoals } = goals;
+    this.matches = '';
+    const updateGoals = await Matches.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    if (!updateGoals) return false;
+    return true;
+  }
 }

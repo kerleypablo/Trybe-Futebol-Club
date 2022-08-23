@@ -2,6 +2,8 @@ import { Response, Request } from 'express';
 import { IMatches } from '../Interfaces/IMatches';
 import IMatchesServices from '../services/interfaces/IMatchesServices';
 
+const erro = { message: 'Something went wrong' };
+
 export default class MatchesController {
   constructor(private matchesservices: IMatchesServices<IMatches>) { }
   getAllMatches = async (req: Request, res: Response) => {
@@ -18,7 +20,7 @@ export default class MatchesController {
       const allMatch = await this.matchesservices.getAllMatches();
       return res.status(200).json(allMatch);
     } catch (error) {
-      res.status(500).json({ message: 'Something went wrong' });
+      res.status(500).json(erro);
     }
   };
 
@@ -36,7 +38,28 @@ export default class MatchesController {
       const newMatch = await this.matchesservices.creatMatch(req.body);
       return res.status(201).json(newMatch);
     } catch (error) {
-      res.status(500).json({ message: 'Something went wrong' });
+      res.status(500).json(erro);
+    }
+  };
+
+  updateMacthesProgres = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      this.matchesservices.updateMatchProgress(id);
+      res.status(200).json({ message: 'finisehd' });
+    } catch (error) {
+      res.status(500).json(erro);
+    }
+  };
+
+  updateGoals = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const goals = req.body;
+      const result = await this.matchesservices.updateMatcheGoals(goals, id);
+      return res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json(erro);
     }
   };
 }
