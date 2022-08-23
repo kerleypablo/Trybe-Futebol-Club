@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { teamController } from './main';
 
-const user = Router();
+const teams = Router();
 
-user.get('/teams', teamController.getAllTeams);
-user.get('/teams/:id', teamController.getTeambyId);
+teams.get('/teams', teamController.getAllTeams);
+teams.get('/teams/:id', teamController.getTeambyId);
 
-export default user;
+export default teams;
