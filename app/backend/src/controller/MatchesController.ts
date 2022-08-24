@@ -45,8 +45,9 @@ export default class MatchesController {
   updateMacthesProgres = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      this.matchesservices.updateMatchProgress(id);
-      res.status(200).json({ message: 'finisehd' });
+      const result = this.matchesservices.updateMatchProgress(id);
+      if (!result) return res.status(400).json({ message: 'Id not found' });
+      return res.status(200).json({ message: 'finisehd' });
     } catch (error) {
       res.status(500).json(erro);
     }

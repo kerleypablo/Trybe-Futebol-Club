@@ -1,13 +1,17 @@
-import { IleaderBoard } from '../Interfaces/ILeaderBoard';
-import Matches from '../database/models/Matches';
-import { IMatches } from '../Interfaces/IMatches';
+import { IMatchesInfo } from '../Interfaces/IMatches';
 import IleaderBoardServices from './interfaces/ILeaderBoardServices';
+import MatchesServices from './MatchsServices';
+import { PointsCalculateHome } from '../Utils/Boardservices';
+import { IleaderBoard } from '../Interfaces/ILeaderBoard';
 
 export default class LeaderBoardServices implements IleaderBoardServices<IleaderBoard> {
-  teste: string;
-  async getMatchsFineshed(): Promise<IMatches[]> {
-    const matches = await Matches.findAll({ where: { inProgress: false } });
-    this.teste = '';
-    return matches as IMatches[];
+  private matchservices: MatchesServices = new MatchesServices();
+
+  async getTeamsInfoBoardHome(): Promise<IleaderBoard[]> {
+    const matches = await this.matchservices.getAllMatchesNotInProgress();
+    const boarder = PointsCalculateHome(matches as IMatchesInfo[]);
+    boarder.sortByPoints();
+    console.log(boarder.board);
+    return boarder.board;
   }
 }

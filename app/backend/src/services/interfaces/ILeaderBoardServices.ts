@@ -1,3 +1,3 @@
 export default interface IleaderBoardServices<T> {
-  getMatchsFineshed(): Promise<any[]>
+  getTeamsInfoBoardHome(): Promise<T[]>
 }

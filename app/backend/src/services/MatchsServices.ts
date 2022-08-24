@@ -33,7 +33,7 @@ export default class MatchesServices implements ImatchesServices<IMatches> {
   async getAllMatchesNotInProgress(): Promise<IMatches[]> {
     console.log('notIn');
     const allMatchInProgress = await Matches.findAll({
-      where: { inProgress: false },
+      where: { inProgress: 0 },
       include: [
         { model: Teams, as: 'teamHome', attributes: ['teamName'] },
         { model: Teams, as: 'teamAway', attributes: ['teamName'] },
@@ -66,7 +66,7 @@ export default class MatchesServices implements ImatchesServices<IMatches> {
     this.matches = '';
     const result = await Matches.findByPk(id);
     if (!result) return false;
-    await Matches.update({ inProgress: false }, { where: { id } });
+    await Matches.update({ inProgress: 0 }, { where: { id } });
     return true;
   }
 
