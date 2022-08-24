@@ -83,7 +83,7 @@ export default class TimeInfo implements IleaderBoard {
       this.goalsFavor += jogo.awayTeamGoals;
     }
     if (jogo.homeTeamGoals === jogo.awayTeamGoals) {
-      this.goalsFavor += jogo.awayTeam;
+      this.goalsFavor += jogo.awayTeamGoals;
       this.goalsOwn += jogo.homeTeamGoals;
       this.totalPoints += 1;
       this.totalDraws += 1;
